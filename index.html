@@ -3,15 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>sskkyy | Glassmorphism</title>
+  <title>戀與光遇 | 個人自介</title>
+  
+  <!-- Google Fonts: Noto Sans TC -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
   <style>
     /* ==========================================================================
-       1. 全局重置與核心變數
+       1. 全局變數與重置 (Variables & Resets)
        ========================================================================== */
     :root {
       --bg-gradient: radial-gradient(circle at 50% -20%, #1a1c2e, #0a0b10 80%);
       --glass-bg: rgba(255, 255, 255, 0.05);
-      --glass-bg-hover: rgba(255, 255, 255, 0.09);
+      --glass-bg-hover: rgba(255, 255, 255, 0.08);
       --glass-border: rgba(255, 255, 255, 0.12);
       --glass-border-glow: rgba(0, 242, 254, 0.4);
       
@@ -29,131 +35,288 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      scroll-behavior: smooth;
     }
 
     body {
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg-gradient);
       color: var(--text-primary);
-      display: flex;
-      justify-content: center;
-      align-items: center;
       overflow-x: hidden;
+      padding-top: 80px;
     }
 
     /* ==========================================================================
-       2. 背景動態光暈
+       2. 背景環境光暈 (Ambient Glow)
        ========================================================================== */
-    .glow-sphere {
+    .bg-glow {
       position: fixed;
-      width: 350px;
-      height: 350px;
-      background: radial-gradient(circle, rgba(0, 242, 254, 0.3) 0%, rgba(79, 172, 254, 0.1) 50%, rgba(0, 0, 0, 0) 70%);
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      filter: blur(80px);
       z-index: -1;
-      filter: blur(60px);
-      transition: all 0.6s var(--transition-smooth);
+      pointer-events: none;
     }
 
-    .glow-sphere.active {
+    .bg-glow-1 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 242, 254, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+      top: -100px;
+      left: -100px;
+    }
+
+    .bg-glow-2 {
       width: 500px;
       height: 500px;
-      background: radial-gradient(circle, rgba(255, 0, 128, 0.3) 0%, rgba(120, 0, 255, 0.15) 50%, rgba(0, 0, 0, 0) 70%);
+      background: radial-gradient(circle, rgba(79, 172, 254, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+      bottom: -150px;
+      right: -150px;
     }
 
     /* ==========================================================================
-       3. 玻璃擬物卡片容器
+       3. 導覽列 (Navigation Bar)
        ========================================================================== */
-    .glass-card {
-      width: 90%;
-      max-width: 480px;
-      padding: 2.5rem;
-      background: var(--glass-bg);
+    .glass-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 2rem;
+      background: rgba(10, 11, 16, 0.7);
       backdrop-filter: var(--blur-amount);
       -webkit-backdrop-filter: var(--blur-amount);
-      border: 1px solid var(--glass-border);
-      border-radius: 24px;
-      box-shadow: var(--glass-shadow);
-      transition: transform 0.4s var(--transition-smooth), border-color 0.4s var(--transition-smooth);
+      border-bottom: 1px solid var(--glass-border);
+      z-index: 1000;
     }
 
-    .glass-card:hover {
-      border-color: var(--glass-border-glow);
-      transform: translateY(-4px);
-    }
-
-    /* ==========================================================================
-       4. 元件樣式
-       ========================================================================== */
-    .badge {
-      display: inline-block;
-      padding: 0.25rem 0.75rem;
-      font-size: 0.75rem;
+    .logo {
+      font-size: 1.25rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
-      color: var(--accent-cyan);
-      background: rgba(0, 242, 254, 0.1);
-      border: 1px solid rgba(0, 242, 254, 0.3);
-      border-radius: 20px;
-      margin-bottom: 1rem;
-    }
-
-    h1 {
-      font-size: 2rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.75rem;
-      background: linear-gradient(135deg, #ffffff 30%, var(--text-secondary));
+      letter-spacing: 0.05em;
+      background: linear-gradient(135deg, #ffffff, var(--accent-cyan));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    p {
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
       color: var(--text-secondary);
+      text-decoration: none;
       font-size: 0.95rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
+      transition: color 0.3s ease;
     }
 
-    .glass-btn {
-      width: 100%;
-      padding: 1rem 1.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.08);
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent-cyan);
+    }
+
+    /* ==========================================================================
+       4. 主要佈局與玻璃卡片 (Main Container & Glass Cards)
+       ========================================================================== */
+    .main-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: var(--blur-amount);
+      -webkit-backdrop-filter: var(--blur-amount);
       border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      cursor: pointer;
-      backdrop-filter: blur(8px);
-      transition: all 0.3s var(--transition-smooth);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: var(--glass-shadow);
+      transition: transform 0.3s var(--transition-smooth), border-color 0.3s var(--transition-smooth);
     }
 
-    .glass-btn:hover {
-      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
-      border-color: transparent;
-      color: #000;
-      box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+    .glass-card:hover {
+      border-color: var(--glass-border-glow);
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+
+    /* Hero 特別視覺 */
+    .hero-section {
+      text-align: center;
+      padding: 3.5rem 2rem;
+    }
+
+    .gradient-text {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #ffffff 30%, var(--accent-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    /* 頁籤控制 (Tabs) */
+    .profile-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--glass-border);
+      padding-bottom: 0.75rem;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+      color: var(--text-primary);
+      background: rgba(0, 242, 254, 0.15);
+      border: 1px solid rgba(0, 242, 254, 0.3);
+    }
+
+    .tab-content.hidden {
+      display: none;
+    }
+
+    /* 展示區與預留區 */
+    .photo-placeholder, .working-notice {
+      color: var(--text-secondary);
+      padding: 2rem;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed var(--glass-border);
+      border-radius: 12px;
+    }
+
+    /* 頁尾 (Footer) */
+    .footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
     }
   </style>
 </head>
 <body>
-  <div class="glow-sphere"></div>
-  <main class="glass-card">
-    <div class="badge">PROTOTYPE</div>
-    <h1>sskkyy</h1>
-    <p>基於 Glassmorphism 設計語彙與暗黑調性的極簡 Web 介面。</p>
-    <button class="glass-btn" onclick="toggleGlow()">切換光暈效果</button>
+
+  <!-- 背景環境光暈 -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- 頂部導覽列 -->
+  <header class="glass-nav">
+    <div class="logo">戀與光遇</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#hero" class="active">首頁</a></li>
+        <li><a href="#gallery">照片展示</a></li>
+        <li><a href="#profiles">個人與好友</a></li>
+        <li><a href="#links">社群連結</a></li>
+        <li><a href="#lab">施工與擴充</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 主要內容區 -->
+  <main class="main-container">
+
+    <!-- Hero 主視覺牆 -->
+    <section id="hero" class="glass-card hero-section">
+      <h1 class="gradient-text">戀與光遇</h1>
+      <p class="subtitle">歡迎來到我的個人專屬空間</p>
+    </section>
+
+    <!-- 📷 照片展示區 -->
+    <section id="gallery" class="glass-card">
+      <h2 class="section-title">📷 精選相片</h2>
+      <div class="gallery-grid">
+        <div class="photo-placeholder">照片載入中...</div>
+      </div>
+    </section>
+
+    <!-- 📝 個人與好友自介區 -->
+    <section id="profiles" class="glass-card">
+      <h2 class="section-title">📝 關於我們</h2>
+      <div class="profile-tabs">
+        <button class="tab-btn active" data-tab="tab-me">我的自介</button>
+        <button class="tab-btn" data-tab="tab-friends">好友列表</button>
+      </div>
+      <div class="tab-content" id="tab-me">
+        <p>自我介紹內容準備中...</p>
+      </div>
+      <div class="tab-content hidden" id="tab-friends">
+        <p>好友介紹內容準備中...</p>
+      </div>
+    </section>
+
+    <!-- 🔗 社群連結區 -->
+    <section id="links" class="glass-card">
+      <h2 class="section-title">🔗 社群平台</h2>
+      <div class="social-links-grid">
+        <!-- 連結按鈕預留區 -->
+      </div>
+    </section>
+
+    <!-- 🚧 施工與擴充區 -->
+    <section id="lab" class="glass-card">
+      <h2 class="section-title">🚧 未來功能擴充實驗室</h2>
+      <p class="working-notice">更多精彩功能開發中，敬請期待！</p>
+    </section>
+
   </main>
 
+  <!-- 頁尾 -->
+  <footer class="footer">
+    <p>&copy; 2026 戀與光遇. All Rights Reserved.</p>
+  </footer>
+
+  <!-- 腳本邏輯 -->
   <script>
-    function toggleGlow() {
-      const sphere = document.querySelector('.glow-sphere');
-      sphere.classList.toggle('active');
-    }
+    // 頁籤切換邏輯 (Tab Switcher)
+    document.addEventListener('DOMContentLoaded', () => {
+      const tabBtns = document.querySelectorAll('.tab-btn');
+      const tabContents = document.querySelectorAll('.tab-content');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetTabId = btn.getAttribute('data-tab');
+
+          tabBtns.forEach(b => b.classList.remove('active'));
+          tabContents.forEach(c => c.classList.add('hidden'));
+
+          btn.classList.add('active');
+          document.getElementById(targetTabId).classList.remove('hidden');
+        });
+      });
+    });
   </script>
 </body>
 </html>
