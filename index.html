@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>戀與光遇 | 個人自介</title>
+  <!-- Google Fonts: 引入適合現代感與玻璃擬物化的字體 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <!-- 主要樣式表 -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 背景裝飾（供玻璃擬物化透光效果使用） -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- 頂部導覽列 (Navigation) -->
+  <header class="glass-nav">
+    <div class="logo">戀與光遇</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#hero" class="active">首頁</a></li>
+        <li><a href="#gallery">照片展示</a></li>
+        <li><a href="#profiles">個人與好友</a></li>
+        <li><a href="#links">社群連結</a></li>
+        <li><a href="#lab">施工與擴充</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- 主要內容區 (Main Content) -->
+  <main class="main-container">
+
+    <!-- Hero 主視覺牆 -->
+    <section id="hero" class="glass-card hero-section">
+      <h1 class="gradient-text">戀與光遇</h1>
+      <p class="subtitle">歡迎來到我的個人專屬空間</p>
+    </section>
+
+    <!-- 📷 照片展示區 -->
+    <section id="gallery" class="glass-card">
+      <h2 class="section-title">📷 精選相片</h2>
+      <div class="gallery-grid">
+        <!-- 照片卡片預留區 -->
+        <div class="photo-placeholder">照片載入中...</div>
+      </div>
+    </section>
+
+    <!-- 📝 個人與好友自介區 -->
+    <section id="profiles" class="glass-card">
+      <h2 class="section-title">📝 關於我們</h2>
+      <div class="profile-tabs">
+        <button class="tab-btn active" data-tab="me">我的自介</button>
+        <button class="tab-btn" data-tab="friends">好友列表</button>
+      </div>
+      <div class="tab-content" id="tab-me">
+        <p>自我介紹內容準備中...</p>
+      </div>
+      <div class="tab-content hidden" id="tab-friends">
+        <p>好友介紹內容準備中...</p>
+      </div>
+    </section>
+
+    <!-- 🔗 社群連結區 -->
+    <section id="links" class="glass-card">
+      <h2 class="section-title">🔗 社群平台</h2>
+      <div class="social-links-grid">
+        <!-- 連結按鈕預留區 -->
+      </div>
+    </section>
+
+    <!-- 🚧 施工與擴充區 -->
+    <section id="lab" class="glass-card">
+      <h2 class="section-title">🚧 未來功能擴充實驗室</h2>
+      <p class="working-notice">更多精彩功能開發中，敬請期待！</p>
+    </section>
+
+  </main>
+
+  <!-- 頁尾 (Footer) -->
+  <footer class="footer">
+    <p>&copy; 2026 戀與光遇. All Rights Reserved.</p>
+  </footer>
+
+  <!-- 主要腳本 -->
+  <script src="main.js"></script>
+</body>
+</html>
